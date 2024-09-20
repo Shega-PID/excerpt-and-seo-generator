@@ -4,7 +4,8 @@
   "info": {
     "singularName": "post",
     "pluralName": "posts",
-    "displayName": "post"
+    "displayName": "post",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,14 +16,24 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "text",
-      "required": true
-    },
     "excerpt": {
       "type": "text",
       "maxLength": 200,
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "content": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "required": true,
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

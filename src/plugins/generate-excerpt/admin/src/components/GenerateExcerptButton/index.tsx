@@ -3,33 +3,62 @@ import { useCMEditViewDataManager } from '@strapi/helper-plugin';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useState } from 'react';
 import { useNotification } from "@strapi/helper-plugin";
-import { AccessibleIcon } from '@strapi/design-system';
-import { Cross } from '@strapi/icons';
 import { Magic } from '@strapi/icons';
+import extractAndConvertJson from '../../utils/extractAndConvertJson';
+import AiGenerateRequest from '../../api/excerpt-api';
 const GenerateExcerptButton = () => {
     const { modifiedData, onChange } = useCMEditViewDataManager();
     const showNotification = useNotification();
-    const [loading, setLoading] = useState(false);
+    const [loadingExcerpt, setLoadingExcerpt] = useState(false);
+    const [loadingSeo, setLoadingSeo] = useState(false);
     const handleGenerateExcerpt = async () => {
-        if (!modifiedData?.title && !modifiedData?.description) {
+        if (!modifiedData?.content) {
+            showNotification({ message: "Content must be provided", title: "Error", type: 'warning' });
+        } else {
+            setLoadingExcerpt(true)
+            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content)
+            onChange({
+                target: { name: "excerpt", value: response.result },
+            });
+            showNotification({ message: "Excerpt generated", title: "Success", type: 'success' });
+            setLoadingExcerpt(false)
+        }
+    };
+    const handleGenerateSeo = async () => {
+        if (!modifiedData?.title || !modifiedData?.content) {
             showNotification({ message: "Title or Description must be provided", title: "Error", type: 'warning' });
         } else {
-            setLoading(true)
-            const genAI = new GoogleGenerativeAI("AIzaSyBiSdGyjS9fNuTkBFvlArT9FrprQGVSmfs");
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const prompt = `Write a 500 character excerpt from title = ${modifiedData?.title} and description = ${modifiedData?.description} and remove the title in response.`;
-            const result = await model.generateContent(prompt);
+            setLoadingSeo(true)
+            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content)
+            const { metaTitle, metaDescription, keywords } = extractAndConvertJson(response?.result);
             onChange({
-                target: { name: "excerpt", value: result.response.text() },
+                target: { name: "seo.0.metaTitle", value: metaTitle },
             });
-            setLoading(false)
+            onChange({
+                target: { name: "seo.0.metaDescription", value: metaDescription },
+            });
+            onChange({
+                target: { name: "seo.0.keywords", value: keywords },
+            });
+            showNotification({ message: "SEO generated", title: "Success", type: 'success' });
+            setLoadingSeo(false)
         }
     };
     return (
-        <Button onClick={handleGenerateExcerpt} fullWidth={true} loading={loading} variant="primary" >
-            Generate Excerpt <Magic />
-        </Button>
+        <div>
+            <Button onClick={handleGenerateExcerpt} fullWidth={true} loading={loadingExcerpt} variant="primary" >
+                Generate Excerpt  <Magic />
+            </Button>
+            <div style={{ height: "10px" }}>
+
+            </div>
+            <Button onClick={handleGenerateSeo} fullWidth={true} loading={loadingSeo} variant="primary" >
+                Generate Seo <Magic />
+            </Button>
+        </div>
+
     );
 };
 
 export default GenerateExcerptButton;
+

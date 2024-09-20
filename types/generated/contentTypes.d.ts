@@ -368,18 +368,28 @@ export interface ApiPostPost extends Schema.CollectionType {
     singularName: 'post';
     pluralName: 'posts';
     displayName: 'post';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    description: Attribute.Text & Attribute.Required;
     excerpt: Attribute.Text &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    seo: Attribute.Component<'seo.seo', true>;
+    content: Attribute.RichText &
+      Attribute.Required &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'standard';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

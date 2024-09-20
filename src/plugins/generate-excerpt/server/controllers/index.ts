@@ -1,5 +1,8 @@
-import myController from './my-controller';
+import excerptGenerator from './excerpt-generator';
+import seoGenerator from './seo-generator';
+
 
 export default {
-  myController,
+  excerptGenerator,
+  seoGenerator
 };
