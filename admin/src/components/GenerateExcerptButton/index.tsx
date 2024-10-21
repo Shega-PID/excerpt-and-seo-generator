@@ -33,19 +33,21 @@ const GenerateExcerptButton = () => {
         } else {
             setLoadingSeo(true)
             const response = await AiGenerateRequest.generateSeo(modifiedData?.content)
-            setLoadingSeo(false)
+            if (!response.data) {
+                setLoadingSeo(false)
+            }
             const { metaTitle, metaDescription, keywords } = extractAndConvertJson(response?.result);
             onChange({
-                target: { name: "seo.0.metaTitle", value: metaTitle },
+                target: { name: "seo.metaTitle", value: metaTitle },
             });
             onChange({
-                target: { name: "seo.0.metaDescription", value: metaDescription },
+                target: { name: "seo.metaDescription", value: metaDescription },
             });
             onChange({
-                target: { name: "seo.0.keywords", value: keywords },
+                target: { name: "seo.keywords", value: keywords },
             });
             showNotification({ message: "SEO generated", title: "Success", type: 'success' });
-
+            setLoadingSeo(false)
         }
     };
     return (

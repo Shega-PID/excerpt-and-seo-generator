@@ -7,25 +7,32 @@ This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Str
 * **Generate Excerpt**: Generates Excerpt using Gemini AI.
 * **Generate Seo**: Generates Seo using Gemini AI.
 
+## Required Parameters
+To run this project, you need to set up gemini api key environment variable in your `.env` file:
+
+GOOGLEGENERATEAIAPIKEY=your_value_here
+
+To generate api key go to https://ai.google.dev/aistudio
+
 ## Excerpt Parameters
-title: The title of the item.
-content: The content of the item.
-excerpt: The attribute that accepts generated result.
+**title**: The title of the item.
+**content**: The content of the item.
+**excerpt**: The attribute that accepts generated result.
 
 ## Excerpt Parameters Types
-title: short or long text.
-content: CKEditor a package for content.
-excerpt: short or long text.
+**title**: short or long text.
+**content**: CKEditor a package for content.
+**excerpt**: short or long text.
 
 
 ## Seo Parameters
-metaTitle: The attribute that accepts generated meta title.
-metaDescription: The attribute that accepts generated meta description.
+**metaTitle**: The attribute that accepts generated meta title.
+**metaDescription**: The attribute that accepts generated meta description.
 
 
 ## Seo Parameters Types
-metaTitle: short or long text.
-metaDescription: short or long text.
+**metaTitle**: short or long text.
+**metaDescription**: short or long text.
 
 Note: Seo must be repeatable component.
 
