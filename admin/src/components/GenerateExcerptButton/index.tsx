@@ -51,7 +51,7 @@ const GenerateExcerptButton = () => {
     return (
         <div>
             <Button onClick={handleGenerateExcerpt} fullWidth={true} loading={loadingExcerpt} variant="primary" >
-                Generate Excerptsaa <Magic />
+                Generate Excerpt <Magic />
             </Button>
             <div style={{ height: "10px" }}>
 

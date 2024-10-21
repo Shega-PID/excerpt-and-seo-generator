@@ -1,5 +1,5 @@
 {
-  "name": "generate-excerpt",
+  "name": "excerpt-and-seo-generator",
   "version": "0.0.2",
   "description": "This is the description of the plugin.",
   "strapi": {
