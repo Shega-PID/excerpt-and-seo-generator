@@ -5,7 +5,7 @@ const AiGenerateRequest = {
     content: string,
   ) => {    
     return await request(
-      `/generate-excerpt/excerpt-generator`,
+      `/excerpt-and-seo-generator/excerpt-generator`,
       {
         method: "POST",
         body: { content },
@@ -16,7 +16,7 @@ const AiGenerateRequest = {
     content: string,
   ) => {    
     return await request(
-      `/generate-excerpt/seo-generator`,
+      `/excerpt-and-seo-generator/seo-generator`,
       {
         method: "POST",
         body: { content },
