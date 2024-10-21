@@ -12,11 +12,14 @@ const GenerateExcerptButton = () => {
     const [loadingExcerpt, setLoadingExcerpt] = useState(false);
     const [loadingSeo, setLoadingSeo] = useState(false);
     const handleGenerateExcerpt = async () => {
-        if (!modifiedData?.content) {
+        if (!modifiedData?.content?.body) {
             showNotification({ message: "Content must be provided", title: "Error", type: 'warning' });
         } else {
             setLoadingExcerpt(true)
-            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content)
+            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content?.body)
+            if (!response.data) {
+                setLoadingExcerpt(false)
+            }
             onChange({
                 target: { name: "excerpt", value: response.result },
             });
@@ -25,11 +28,12 @@ const GenerateExcerptButton = () => {
         }
     };
     const handleGenerateSeo = async () => {
-        if (!modifiedData?.title || !modifiedData?.content) {
-            showNotification({ message: "Title or Description must be provided", title: "Error", type: 'warning' });
+        if (!modifiedData?.title || !modifiedData?.content?.body) {
+            showNotification({ message: "Title or Content must be provided", title: "Error", type: 'warning' });
         } else {
             setLoadingSeo(true)
-            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content)
+            const response = await AiGenerateRequest.generateSeo(modifiedData?.content)
+            setLoadingSeo(false)
             const { metaTitle, metaDescription, keywords } = extractAndConvertJson(response?.result);
             onChange({
                 target: { name: "seo.0.metaTitle", value: metaTitle },
@@ -41,13 +45,13 @@ const GenerateExcerptButton = () => {
                 target: { name: "seo.0.keywords", value: keywords },
             });
             showNotification({ message: "SEO generated", title: "Success", type: 'success' });
-            setLoadingSeo(false)
+
         }
     };
     return (
         <div>
             <Button onClick={handleGenerateExcerpt} fullWidth={true} loading={loadingExcerpt} variant="primary" >
-                Generate Excerpt  <Magic />
+                Generate Excerptsaa <Magic />
             </Button>
             <div style={{ height: "10px" }}>
 

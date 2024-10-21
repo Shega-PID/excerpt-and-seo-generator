@@ -1,4 +1,4 @@
-# Strapi plugin WordPress-to-Strapi-migrator
+# Strapi plugin Excerpt and Seo Generator
 
 ## Description
 This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Strapi. The plugin utilizes Gemini REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.
