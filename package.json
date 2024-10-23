@@ -1,10 +1,10 @@
 {
   "name": "excerpt-and-seo-generator",
   "version": "0.0.3",
-  "description": "This is the description of the plugin.",
+  "description": "This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Strapi. The plugin utilizes Gemini REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
   "strapi": {
-    "name": "generate-excerpt",
-    "description": "Description of generate-excerpt plugin",
+    "name": "excerpt-and-seo-generator",
+    "description": "This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Strapi. The plugin utilizes Gemini REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
     "kind": "plugin"
   },
   "dependencies": {
