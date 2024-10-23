@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_contents",
+  "info": {
+    "displayName": "body",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "body": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "rich"
+      },
+      "required": false,
+      "customField": "plugin::ckeditor.CKEditor"
+    }
+  }
+}
