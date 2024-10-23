@@ -6,6 +6,7 @@ import { useNotification } from "@strapi/helper-plugin";
 import { Magic } from '@strapi/icons';
 import extractAndConvertJson from '../../utils/extractAndConvertJson';
 import AiGenerateRequest from '../../api/excerpt-api';
+import { removeHTMLTags } from '../../utils/removeHTMLTags';
 const GenerateExcerptButton = () => {
     const { modifiedData, onChange } = useCMEditViewDataManager();
     const showNotification = useNotification();
@@ -16,7 +17,8 @@ const GenerateExcerptButton = () => {
             showNotification({ message: "Content must be provided", title: "Error", type: 'warning' });
         } else {
             setLoadingExcerpt(true)
-            const response = await AiGenerateRequest.generateExcerpt(modifiedData?.content?.body)
+            const cleanContent = removeHTMLTags(modifiedData?.content?.body)
+            const response = await AiGenerateRequest.generateExcerpt(cleanContent)
             if (!response.data) {
                 setLoadingExcerpt(false)
             }
@@ -31,17 +33,18 @@ const GenerateExcerptButton = () => {
         if (!modifiedData?.title || !modifiedData?.content?.body) {
             showNotification({ message: "Title or Content must be provided", title: "Error", type: 'warning' });
         } else {
+            const cleanContent = removeHTMLTags(modifiedData?.content?.body)
             setLoadingSeo(true)
-            const response = await AiGenerateRequest.generateSeo(modifiedData?.content)
+            const response = await AiGenerateRequest.generateSeo(cleanContent)
             if (!response.data) {
                 setLoadingSeo(false)
             }
-            const { metaTitle, metaDescription, keywords } = extractAndConvertJson(response?.result);
+            const { title, description, keywords } = extractAndConvertJson(response?.result);
             onChange({
-                target: { name: "seo.metaTitle", value: metaTitle },
+                target: { name: "seo.metaTitle", value: title },
             });
             onChange({
-                target: { name: "seo.metaDescription", value: metaDescription },
+                target: { name: "seo.metaDescription", value: description },
             });
             onChange({
                 target: { name: "seo.keywords", value: keywords },
