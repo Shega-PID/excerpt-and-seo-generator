@@ -375,7 +375,7 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    excerpt: Attribute.String;
+    excerpt: Attribute.Text;
     seo: Attribute.Component<'seo.seo'>;
     content: Attribute.Component<'content.content'> & Attribute.Required;
     createdAt: Attribute.DateTime;

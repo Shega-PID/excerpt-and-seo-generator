@@ -17,7 +17,7 @@
       "required": true
     },
     "excerpt": {
-      "type": "string"
+      "type": "text"
     },
     "seo": {
       "displayName": "seo",
