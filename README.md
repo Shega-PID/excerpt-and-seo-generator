@@ -10,9 +10,16 @@ This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Str
 ## Required Parameters
 To run this project, you need to set up gemini api key environment variable in your `.env` file:
 
-GOOGLEGENERATEAIAPIKEY=your_value_here
+GOOGLE_GENERATE_AI_API_KEY=your_value_here
 
 To generate api key go to https://ai.google.dev/aistudio
+
+## Optional Parameters
+To customize the prompt, you can add this environment variable in your `.env` file:
+
+GENERATE_SEO_PROMPT=your_value_here
+GENERATE_EXCERPT_PROMPT=your_value_here
+
 
 ## Excerpt Parameters
 **title**: The title of the item.

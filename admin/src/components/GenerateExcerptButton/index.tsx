@@ -35,13 +35,13 @@ const GenerateExcerptButton = () => {
         } else {
             const cleanContent = removeHTMLTags(modifiedData?.content?.body)
             setLoadingSeo(true)
-            const response = await AiGenerateRequest.generateSeo(cleanContent)
+            const response = await AiGenerateRequest.generateSeo(cleanContent,modifiedData?.title)
             if (!response.data) {
                 setLoadingSeo(false)
             }
-            const { title, description, keywords } = extractAndConvertJson(response?.result);
+            const { description, keywords } = extractAndConvertJson(response?.result);
             onChange({
-                target: { name: "seo.metaTitle", value: title },
+                target: { name: "seo.metaTitle", value: modifiedData?.title },
             });
             onChange({
                 target: { name: "seo.metaDescription", value: description },
