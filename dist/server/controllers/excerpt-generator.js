@@ -1,19 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const generative_ai_1 = require("@google/generative-ai");
+const generateResponse_1 = require("../utils/generateResponse");
 exports.default = ({ strapi }) => ({
     async index(ctx) {
-        var _a;
         const { content } = ctx.request.body;
-        const generateResponse = async () => {
-            const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLEGENERATEAIAPIKEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await model.generateContent(`Write a 200 character excerpt from ${content} and remove the title in response.`);
-            return result;
-        };
-        const result = await generateResponse();
+        const selectPrompt = process.env.GENERATE_EXCERPT_PROMPT
+            ? `${process.env.GENERATE_EXCERPT_PROMPT} from ${content}`
+            : `Generate a maximum 200 character's long excerpt from ${content};ensure the excerpt does not exceed the character limit; return all as one JSON format with attribute name excerpt.`;
+        const result = await (0, generateResponse_1.generateResponse)(selectPrompt);
         const response = {
-            result: (_a = result === null || result === void 0 ? void 0 : result.response) === null || _a === void 0 ? void 0 : _a.text()
+            result: result,
         };
         ctx.send(JSON.stringify(response));
     },
