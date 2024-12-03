@@ -1,11 +1,8 @@
 import { prefixPluginTranslations } from '@strapi/helper-plugin';
-
 import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
-import GenerateExcerptButton from './components/GenerateExcerptButton';
-
+import GenerateButton from './components/GenerateButton';
 const name = pluginPkg.strapi.name;
 
 export default {
@@ -22,7 +19,7 @@ export default {
 
     app.injectContentManagerComponent('editView', 'right-links', {
       name: pluginId,
-      Component: GenerateExcerptButton,
+      Component: GenerateButton,
     });
   },
 
