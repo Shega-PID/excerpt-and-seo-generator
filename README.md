@@ -1,14 +1,14 @@
 # Strapi plugin Excerpt and Seo Generator
 
 ## Description
-This Strapi plugin allows you to generate excerpt and seo using Gemini AI to Strapi. The plugin utilizes Gemini REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.
+This Strapi plugin allows you to generate excerpt and seo using Groq AI to Strapi. The plugin utilizes Groq REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.
 
 ## Key Features
-* **Generate Excerpt**: Generates Excerpt using Gemini AI.
-* **Generate Seo**: Generates Seo using Gemini AI.
+* **Generate Excerpt**: Generates Excerpt using Groq AI.
+* **Generate Seo**: Generates Seo using Groq AI.
 
 ## Required Parameters
-To run this project, you need to set up gemini api key environment variable in your `.env` file:
+To run this project, you need to set up Groq api key environment variable in your `.env` file:
 
 GOOGLE_GENERATE_AI_API_KEY=your_value_here
 
