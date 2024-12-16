@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateResponse = void 0;
 const groq_sdk_1 = __importDefault(require("groq-sdk"));
 const groq = new groq_sdk_1.default({
-    apiKey: process.env.GOOGLE_GENERATE_AI_API_KEY,
+    apiKey: process.env.GROQ_AI_API_KEY,
 });
 const generateResponse = async (selectPrompt) => {
     var _a, _b;
