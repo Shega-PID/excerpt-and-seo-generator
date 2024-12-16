@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 
 const groq = new Groq({
-  apiKey: process.env.GOOGLE_GENERATE_AI_API_KEY as string,
+  apiKey: process.env.GROQ_AI_API_KEY as string,
 });
 export const generateResponse = async (selectPrompt?: string) => {
   const chatCompletion = await groq.chat.completions.create({

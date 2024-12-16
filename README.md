@@ -10,7 +10,7 @@ This Strapi plugin allows you to generate excerpt and seo using Groq AI to Strap
 ## Required Parameters
 To run this project, you need to set up Groq api key environment variable in your `.env` file:
 
-GOOGLE_GENERATE_AI_API_KEY=your_value_here
+GROQ_AI_API_KEY=your_value_here
 
 To generate api key go to https://ai.google.dev/aistudio
 
