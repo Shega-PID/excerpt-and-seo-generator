@@ -616,6 +616,48 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginExcerptAndSeoGeneratorExcerptSeoContentType
+  extends Schema.SingleType {
+  collectionName: 'excerpt_seo_content_types';
+  info: {
+    singularName: 'excerpt-seo-content-type';
+    pluralName: 'excerpt-seo-content-types';
+    displayName: 'excerptSeoContentType';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    model: Attribute.String;
+    apiKey: Attribute.String;
+    excerptPrompt: Attribute.String;
+    seoPrompt: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::excerpt-and-seo-generator.excerpt-seo-content-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::excerpt-and-seo-generator.excerpt-seo-content-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -829,6 +871,7 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::excerpt-and-seo-generator.excerpt-seo-content-type': PluginExcerptAndSeoGeneratorExcerptSeoContentType;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;

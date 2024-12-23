@@ -1,17 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface SeoSeo extends Schema.Component {
-  collectionName: 'components_seo_seos';
-  info: {
-    displayName: 'seo';
-    description: '';
-  };
-  attributes: {
-    metaTitle: Attribute.String;
-    metaDescription: Attribute.Text;
-  };
-}
-
 export interface ContentContent extends Schema.Component {
   collectionName: 'components_content_contents';
   info: {
@@ -30,11 +18,24 @@ export interface ContentContent extends Schema.Component {
   };
 }
 
+export interface SeoSeo extends Schema.Component {
+  collectionName: 'components_seo_seos';
+  info: {
+    displayName: 'seo';
+    description: '';
+  };
+  attributes: {
+    metaTitle: Attribute.String;
+    metaDescription: Attribute.Text;
+    keywords: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'seo.seo': SeoSeo;
       'content.content': ContentContent;
+      'seo.seo': SeoSeo;
     }
   }
 }

@@ -11,6 +11,9 @@
     },
     "metaDescription": {
       "type": "text"
+    },
+    "keywords": {
+      "type": "string"
     }
   }
 }
