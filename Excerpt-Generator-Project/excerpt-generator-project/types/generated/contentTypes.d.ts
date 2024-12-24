@@ -637,8 +637,9 @@ export interface PluginExcerptAndSeoGeneratorExcerptSeoContentType
     };
   };
   attributes: {
-    model: Attribute.String;
-    apiKey: Attribute.String;
+    product: Attribute.String & Attribute.Required;
+    model: Attribute.String & Attribute.Required;
+    apiKey: Attribute.String & Attribute.Required;
     excerptPrompt: Attribute.String;
     seoPrompt: Attribute.String;
     createdAt: Attribute.DateTime;
