@@ -3,6 +3,7 @@ import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import GenerateButton from './components/GenerateButton';
+import Magic from '@strapi/icons/Magic.js';
 const name = pluginPkg.strapi.name;
 
 export default {
@@ -20,6 +21,16 @@ export default {
     app.injectContentManagerComponent('editView', 'right-links', {
       name: pluginId,
       Component: GenerateButton,
+    });
+    app.addMenuLink({
+      to: `/plugins/${pluginId}`, // Path for the plugin page
+      icon: Magic, // Icon component
+      intlLabel: {
+        id: `${pluginId}.plugin.name`,
+        defaultMessage: "Excerpt SEO",
+      },
+      Component: ()=>import('../src/pages/App'), // Page to load
+      permissions: [], // Add necessary permissions if required
     });
   },
 

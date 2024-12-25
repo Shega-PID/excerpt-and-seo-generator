@@ -19,4 +19,24 @@ export default [
       middleware: []
     },
   },
+  {
+    method: 'POST',
+    path: '/excerpt-seo',
+    handler: 'excerptSeo.create',
+    config: {
+      policies: [],
+      auth: false,
+      middleware: []
+    },
+  },
+  {
+    method: 'GET',
+    path: '/excerpt-seo',
+    handler: 'excerptSeo.get',
+    config: {
+      policies: [],
+      auth: false,
+      middleware: []
+    },
+  },
 ];
