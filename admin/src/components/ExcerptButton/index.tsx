@@ -17,7 +17,7 @@ const ExcerptButton = () => {
             setLoadingExcerpt(true)
             const cleanContent = removeHTMLTags(modifiedData?.content?.body)
             const response = await AiGenerateRequest.generateExcerpt(cleanContent)
-            const { excerpt } = extractAndConvertJson(response?.result);
+            const { excerpt } = extractAndConvertJson(response?.result || "");
             if (!response.data) {
                 setLoadingExcerpt(false)
             }

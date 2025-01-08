@@ -1,11 +1,13 @@
 import Groq from "groq-sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { OpenAI } from "openai";
+import { OpenAI, AzureOpenAI } from "openai";
 
 interface DataType {
   selectPrompt?: string;
   model?: string;
   apiKey?: string;
+  url?: string;
+  deployment?:string;
 }
 export const generateResponse = async (selectPrompt?: string) => {
   const getAiConfig = await strapi
@@ -15,6 +17,8 @@ export const generateResponse = async (selectPrompt?: string) => {
     selectPrompt,
     model: getAiConfig?.model,
     apiKey: getAiConfig?.apiKey,
+    url: getAiConfig?.url,
+    deployment:getAiConfig?.deployment
   };
   let result;
   switch (getAiConfig?.product) {
@@ -26,6 +30,9 @@ export const generateResponse = async (selectPrompt?: string) => {
       break;
     case "groq":
       result = await GenerateUsingGroq(data);
+      break;
+    case "azure-chatgpt":
+      result = await GenerateUsingAzureAI(data);
       break;
     default:
       console.error("Invalid product selected.");
@@ -50,7 +57,10 @@ const GenerateUsingChatGPT = async (data?: DataType) => {
     console.log(">>> log ChatGPT data", response);
     return response;
   } catch (error) {
-    console.error("Error with ChatGPT:", error.response?.data || error.message);
+    console.error(
+      "Error with ChatGPTs:",
+      error.response?.data || error.message
+    );
     throw new Error("Failed to generate response from ChatGPT.");
   }
 };
@@ -87,5 +97,30 @@ const GenerateUsingGroq = async (data?: DataType) => {
   } catch (error) {
     console.error("Error with Groq:", error.response?.data || error.message);
     throw new Error("Failed to generate response from Groq.");
+  }
+};
+
+const GenerateUsingAzureAI = async (data?: DataType) => {
+  const openai = new AzureOpenAI({
+    endpoint: data?.url,
+    apiKey: data?.apiKey,
+    apiVersion: data?.model,
+    deployment: data?.deployment,
+  });
+  try {
+    const chatCompletion = await openai.chat.completions.create({
+      model: "", // Default to GPT-3.5-Turbo
+      messages: [
+        {
+          role: "user",
+          content: data?.selectPrompt || "",
+        },
+      ],
+    });
+    const response = chatCompletion?.choices[0]?.message;
+    return response?.content;
+  } catch (error) {
+    console.error("Error with ChatGPT:", error.response?.data || error.message,data);
+    throw new Error("Failed to generate response from ChatGPT.");
   }
 };

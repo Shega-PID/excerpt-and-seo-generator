@@ -18,11 +18,13 @@ const AiGenerateRequest = {
     model: string,
     apiKey: string,
     excerptPrompt?: string,
-    seoPrompt?: string
+    seoPrompt?: string,
+    url?: string,
+    deployment?:string
   ) => {
     return await request(`/excerpt-and-seo-generator/excerpt-seo`, {
       method: "POST",
-      body: { product, model, apiKey, excerptPrompt, seoPrompt },
+      body: { product, model, apiKey, excerptPrompt, seoPrompt, url,deployment },
     });
   },
   getExcerptSeo: async () => {

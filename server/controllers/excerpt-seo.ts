@@ -11,6 +11,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           product: request?.product, // Assuming a relation exists
           model: request?.model, // Assuming a relation exists
           apiKey: request?.apiKey,
+          url:request?.url,
+          deployment: request?.deployment,
           excerptPrompt: request?.excerptPrompt,
           seoPrompt: request?.seoPrompt,
         },
@@ -24,6 +26,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           product: request?.product ?? getAiConfig.product, // Use the existing value if not provided
           model: request?.model ?? getAiConfig.model,
           apiKey: request?.apiKey ?? getAiConfig.apiKey,
+          deployment: request?.deployment ?? getAiConfig.deployment,
+          url: request?.url ?? getAiConfig.url,
           excerptPrompt: request?.excerptPrompt ?? getAiConfig.excerptPrompt,
           seoPrompt: request?.seoPrompt ?? getAiConfig.seoPrompt,
         },

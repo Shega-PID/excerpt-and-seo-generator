@@ -16,6 +16,8 @@ import { useNotification } from "@strapi/helper-plugin";
 const MyForm = () => {
   const [product, setProduct] = useState("");
   const [model, setModel] = useState("");
+  const [url, setUrl] = useState("");
+  const [deployment, setDeployment] = useState("");
   const [apiKey, setApiKey] = useState("");
   const [excerptPrompt, setExcerptPrompt] = useState("");
   const [seoPrompt, setSeoPrompt] = useState("");
@@ -23,6 +25,8 @@ const MyForm = () => {
     product: "",
     model: "",
     apiKey: "",
+    url: "",
+    deployment: "",
   });
   const { formatMessage } = useIntl();
   const showNotification = useNotification();
@@ -38,12 +42,18 @@ const MyForm = () => {
       newErrorState.product = "Product is required.";
       isValid = false;
     }
-    if (!model.trim()) {
-      newErrorState.model = "Model is required.";
-      isValid = false;
+    if (product !== "custom") {
+      if (!model.trim()) {
+        newErrorState.model = "Model is required.";
+        isValid = false;
+      }
+      if (!apiKey.trim()) {
+        newErrorState.apiKey = "API Key is required.";
+        isValid = false;
+      }
     }
-    if (!apiKey.trim()) {
-      newErrorState.apiKey = "API Key is required.";
+    if (!url.trim() && product == "custom") {
+      newErrorState.url = "Url is required.";
       isValid = false;
     }
 
@@ -59,7 +69,9 @@ const MyForm = () => {
         model,
         apiKey,
         excerptPrompt,
-        seoPrompt
+        seoPrompt,
+        url,
+        deployment
       );
       showNotification({
         message: "Configuration Successful",
@@ -84,6 +96,8 @@ const MyForm = () => {
         setApiKey(data?.apiKey);
         setExcerptPrompt(data?.excerptPrompt);
         setSeoPrompt(data?.seoPrompt);
+        setUrl(data?.url);
+        setDeployment(data?.deployment);
       })
       .catch((err) => console.error("Error fetching entry:", err));
   }, []);
@@ -124,13 +138,21 @@ const MyForm = () => {
             <Option value="groq">
               {formatMessage({ id: "groq", defaultMessage: "Groq" })}
             </Option>
+            <Option value="azure-chatgpt">
+              {formatMessage({
+                id: "azure-chatgpt",
+                defaultMessage: "Azure OpenAI",
+              })}
+            </Option>
           </Select>
 
           {/* Key */}
+
           <TextInput
             label={formatMessage({
               id: "input.model",
-              defaultMessage: "Model",
+              defaultMessage:
+                product == "azure-chatgpt" ? "Api Version" : "Model",
             })}
             name="model"
             value={model}
@@ -148,6 +170,53 @@ const MyForm = () => {
             required
             error={errorState?.model} // Pass the error message if it exists
           />
+          {/* Key */}
+          {product == "azure-chatgpt" && (
+            <TextInput
+              label={formatMessage({
+                id: "input.url",
+                defaultMessage: "Url",
+              })}
+              name="url"
+              value={url}
+              onChange={(e: {
+                target: { value: React.SetStateAction<string> };
+              }) => {
+                setUrl(e.target.value);
+                if (e.target.value) {
+                  setErrorState((prevError) => ({
+                    ...prevError,
+                    url: "",
+                  }));
+                }
+              }}
+              required
+              error={errorState?.url} // Pass the error message if it exists
+            />
+          )}
+          {product == "azure-chatgpt" && (
+            <TextInput
+              label={formatMessage({
+                id: "input.depolyment",
+                defaultMessage: "Deployment",
+              })}
+              name="deployment"
+              value={deployment}
+              onChange={(e: {
+                target: { value: React.SetStateAction<string> };
+              }) => {
+                setDeployment(e.target.value);
+                if (e.target.value) {
+                  setErrorState((prevError) => ({
+                    ...prevError,
+                    deployment: "",
+                  }));
+                }
+              }}
+              required
+              error={errorState?.deployment} // Pass the error message if it exists
+            />
+          )}
           {/* Key */}
           <TextInput
             label={formatMessage({

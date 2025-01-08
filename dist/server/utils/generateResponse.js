@@ -15,6 +15,8 @@ const generateResponse = async (selectPrompt) => {
         selectPrompt,
         model: getAiConfig === null || getAiConfig === void 0 ? void 0 : getAiConfig.model,
         apiKey: getAiConfig === null || getAiConfig === void 0 ? void 0 : getAiConfig.apiKey,
+        url: getAiConfig === null || getAiConfig === void 0 ? void 0 : getAiConfig.url,
+        deployment: getAiConfig === null || getAiConfig === void 0 ? void 0 : getAiConfig.deployment
     };
     let result;
     switch (getAiConfig === null || getAiConfig === void 0 ? void 0 : getAiConfig.product) {
@@ -26,6 +28,9 @@ const generateResponse = async (selectPrompt) => {
             break;
         case "groq":
             result = await GenerateUsingGroq(data);
+            break;
+        case "azure-chatgpt":
+            result = await GenerateUsingAzureAI(data);
             break;
         default:
             console.error("Invalid product selected.");
@@ -53,7 +58,7 @@ const GenerateUsingChatGPT = async (data) => {
         return response;
     }
     catch (error) {
-        console.error("Error with ChatGPT:", ((_b = error.response) === null || _b === void 0 ? void 0 : _b.data) || error.message);
+        console.error("Error with ChatGPTs:", ((_b = error.response) === null || _b === void 0 ? void 0 : _b.data) || error.message);
         throw new Error("Failed to generate response from ChatGPT.");
     }
 };
@@ -92,5 +97,31 @@ const GenerateUsingGroq = async (data) => {
     catch (error) {
         console.error("Error with Groq:", ((_c = error.response) === null || _c === void 0 ? void 0 : _c.data) || error.message);
         throw new Error("Failed to generate response from Groq.");
+    }
+};
+const GenerateUsingAzureAI = async (data) => {
+    var _a, _b;
+    const openai = new openai_1.AzureOpenAI({
+        endpoint: data === null || data === void 0 ? void 0 : data.url,
+        apiKey: data === null || data === void 0 ? void 0 : data.apiKey,
+        apiVersion: data === null || data === void 0 ? void 0 : data.model,
+        deployment: data === null || data === void 0 ? void 0 : data.deployment,
+    });
+    try {
+        const chatCompletion = await openai.chat.completions.create({
+            model: "",
+            messages: [
+                {
+                    role: "user",
+                    content: (data === null || data === void 0 ? void 0 : data.selectPrompt) || "",
+                },
+            ],
+        });
+        const response = (_a = chatCompletion === null || chatCompletion === void 0 ? void 0 : chatCompletion.choices[0]) === null || _a === void 0 ? void 0 : _a.message;
+        return response === null || response === void 0 ? void 0 : response.content;
+    }
+    catch (error) {
+        console.error("Error with ChatGPT:", ((_b = error.response) === null || _b === void 0 ? void 0 : _b.data) || error.message, data);
+        throw new Error("Failed to generate response from ChatGPT.");
     }
 };
