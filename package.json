@@ -1,10 +1,10 @@
 {
   "name": "excerpt-and-seo-generator",
-  "version": "0.0.6",
-  "description": "This Strapi plugin allows you to generate excerpt and seo using Groq AI to Strapi. The plugin utilizes Groq REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
+  "version": "0.0.7",
+  "description": "This Strapi plugin allows you to generate excerpt and seo using AI. The plugin utilizes REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
   "strapi": {
     "name": "excerpt-and-seo-generator",
-    "description": "This Strapi plugin allows you to generate excerpt and seo using Groq AI to Strapi. The plugin utilizes Groq REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
+    "description": "This Strapi plugin allows you to generate excerpt and seo using AI to Strapi. The plugin utilizes REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
     "kind": "plugin"
   },
   "dependencies": {

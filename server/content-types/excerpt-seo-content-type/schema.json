@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "excerpt_seo_content_types",
+  "info": {
+    "singularName": "excerpt-seo-content-type",
+    "pluralName": "excerpt-seo-content-types",
+    "displayName": "excerptSeoContentType"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "product": {
+      "type": "string",
+      "required":true
+    },
+    "model": {
+      "type": "string",
+      "required":true
+    },
+    "apiKey": {
+      "type": "string",
+      "required":true
+    },
+    "excerptPrompt": {
+      "type": "string"
+    },
+    "seoPrompt": {
+      "type": "string"
+    }
+  }
+}
