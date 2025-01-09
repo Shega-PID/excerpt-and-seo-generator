@@ -1,6 +1,6 @@
 {
   "name": "excerpt-and-seo-generator",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "This Strapi plugin allows you to generate excerpt and seo using AI. The plugin utilizes REST API to fetch the necessary data, making generating excerpt and seo process efficient and reliable.",
   "strapi": {
     "name": "excerpt-and-seo-generator",
