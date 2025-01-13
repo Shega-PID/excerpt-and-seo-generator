@@ -12,10 +12,10 @@
   },
   "pluginOptions": {
     "content-manager": {
-      "visible": true
+      "visible": false
     },
     "content-type-builder": {
-      "visible": true
+      "visible": false
     }
   },
   "attributes": {
@@ -30,6 +30,12 @@
     "apiKey": {
       "type": "string",
       "required":true
+    },
+    "url": {
+      "type": "string"
+    },
+    "deployment": {
+      "type": "string"
     },
     "excerptPrompt": {
       "type": "string"
